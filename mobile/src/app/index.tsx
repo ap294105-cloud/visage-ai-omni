@@ -15,7 +15,7 @@ export default function App() {
 
   // Now using public live Localtunnel URLs
   const backendHost = 'https://visage-backend-ap.loca.lt';
-  const frontendHost = 'https://visage-frontend-ap.loca.lt';
+  const frontendHost = Platform.OS === 'web' && typeof window !== 'undefined' ? window.location.origin : 'https://visage-frontend-ap.loca.lt';
   
   const scanUrl = `${frontendHost}/capture?subjectId=${encodeURIComponent(subjectId)}&fullName=${encodeURIComponent(fullName)}&age=${encodeURIComponent(age)}&gender=${encodeURIComponent(gender)}`;
   const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(scanUrl)}`;
