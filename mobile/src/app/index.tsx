@@ -58,7 +58,7 @@ export default function App() {
       isMounted = false;
       clearInterval(interval);
     };
-  }, [showQrPrompt, subjectId, host, router]);
+  }, [showQrPrompt, subjectId, backendHost, router]);
 
   if (showIntake) {
     return (
