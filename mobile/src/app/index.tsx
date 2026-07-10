@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Platform, Dimensions } from 'react-native';
 import { useRouter } from 'expo-router';
 
@@ -88,10 +88,38 @@ export default function LandingPage() {
 
   const howItWorksRef = useRef<View>(null);
 
+  // Inject smooth scroll CSS on web
+  useEffect(() => {
+    if (Platform.OS === 'web' && typeof document !== 'undefined') {
+      const style = document.createElement('style');
+      style.textContent = `
+        html, body, #root, [data-testid="scroll-view"] {
+          scroll-behavior: smooth !important;
+        }
+        * {
+          scroll-behavior: smooth !important;
+        }
+        ::-webkit-scrollbar {
+          width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+          background: #050510;
+        }
+        ::-webkit-scrollbar-thumb {
+          background: rgba(124, 58, 237, 0.3);
+          border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+          background: rgba(124, 58, 237, 0.5);
+        }
+      `;
+      document.head.appendChild(style);
+      return () => { document.head.removeChild(style); };
+    }
+  }, []);
+
   const scrollToSection = () => {
     if (Platform.OS === 'web' && typeof window !== 'undefined') {
-      // On web, ScrollView renders as a scrollable div
-      // Find the "how it works" section and scroll to it
       const heroHeight = window.innerHeight;
       scrollRef.current?.scrollTo({ y: heroHeight, animated: true });
     }
