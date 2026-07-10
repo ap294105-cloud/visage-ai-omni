@@ -1,6 +1,6 @@
 [build]
   base = "mobile"
-  command = "npm install && npx expo export -p web"
+  command = "npm install && python3 patch_jspdf.py && npx expo export -p web"
   publish = "dist"
 
 [[redirects]]
