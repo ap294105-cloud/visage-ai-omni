@@ -101,9 +101,15 @@ export default function App() {
               onPress={() => {
                 const initials = fullName.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) || 'XX';
                 const random = Math.floor(1000 + Math.random() * 9000);
-                setSubjectId(`UPV-${initials}-${age}-${random}`);
+                const newSubjectId = `UPV-${initials}-${age}-${random}`;
+                setSubjectId(newSubjectId);
                 setShowIntake(false);
-                setShowQrPrompt(true);
+                
+                if (Platform.OS !== 'web') {
+                  router.push({ pathname: '/capture', params: { subjectId: newSubjectId, fullName, age, gender } });
+                } else {
+                  setShowQrPrompt(true);
+                }
               }}
             >
               <Text style={styles.buttonText}>VERIFY & PROCEED</Text>

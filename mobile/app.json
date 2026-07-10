@@ -1,30 +1,33 @@
 {
   "expo": {
-    "name": "mobile",
-    "slug": "mobile",
+    "name": "Visage AI",
+    "slug": "visage-ai",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "mobile",
-    "userInterfaceStyle": "automatic",
+    "scheme": "visageai",
+    "userInterfaceStyle": "dark",
     "ios": {
       "supportsTablet": true,
+      "bundleIdentifier": "com.adityapandey.visageai",
       "infoPlist": {
-        "NSCameraUsageDescription": "Visage AI requires high-resolution camera access to perform deterministic facial topography and structural evaluations.",
-        "NSPhotoLibraryUsageDescription": "Visage AI needs access to save and process your analytical facial scans.",
-        "NSPhotoLibraryAddUsageDescription": "Visage AI needs access to save your analytical facial scans."
+        "NSCameraUsageDescription": "Visage AI requires camera access to perform contactless biometric facial analysis.",
+        "NSPhotoLibraryUsageDescription": "Visage AI needs access to save your biometric scan reports.",
+        "NSPhotoLibraryAddUsageDescription": "Visage AI needs access to save your biometric scan reports."
       }
     },
     "android": {
+      "package": "com.adityapandey.visageai",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/android-icon-foreground.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#050510"
       },
       "permissions": [
         "android.permission.CAMERA",
         "android.permission.READ_EXTERNAL_STORAGE",
         "android.permission.WRITE_EXTERNAL_STORAGE",
-        "android.permission.RECORD_AUDIO"
+        "android.permission.RECORD_AUDIO",
+        "android.permission.INTERNET"
       ],
       "predictiveBackGestureEnabled": false
     },
@@ -37,9 +40,9 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#208AEF",
+          "backgroundColor": "#050510",
           "image": "./assets/images/splash-icon.png",
-          "imageWidth": 76
+          "imageWidth": 200
         }
       ]
     ],
