@@ -86,14 +86,24 @@ export default function LandingPage() {
   const scrollRef = useRef<ScrollView>(null);
   const [showDemo, setShowDemo] = useState(false);
 
+  const howItWorksRef = useRef<View>(null);
+
   const scrollToSection = () => {
     if (Platform.OS === 'web' && typeof window !== 'undefined') {
-      window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+      // On web, ScrollView renders as a scrollable div
+      // Find the "how it works" section and scroll to it
+      const heroHeight = window.innerHeight;
+      scrollRef.current?.scrollTo({ y: heroHeight, animated: true });
     }
   };
 
   return (
-    <View style={styles.root}>
+    <ScrollView
+      ref={scrollRef}
+      style={styles.root}
+      contentContainerStyle={styles.rootContent}
+      showsVerticalScrollIndicator={false}
+    >
       {/* ══════════ HERO SECTION ══════════ */}
       <View style={styles.heroContainer}>
         {/* 3D Canvas Background (Web only) */}
@@ -300,7 +310,7 @@ export default function LandingPage() {
           </View>
         </View>
       )}
-    </View>
+    </ScrollView>
   );
 }
 
@@ -309,6 +319,9 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     backgroundColor: '#050510',
+  },
+  rootContent: {
+    flexGrow: 1,
   },
 
   // ── Hero ────────────────────────────────
