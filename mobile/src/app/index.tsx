@@ -26,7 +26,9 @@ export default function App() {
     let isMounted = true;
     const interval = setInterval(async () => {
       try {
-        const res = await fetch(`${backendHost}/api/v2/admin/record/${subjectId}`);
+        const res = await fetch(`${backendHost}/api/v2/admin/record/${subjectId}`, {
+          headers: { 'Bypass-Tunnel-Reminder': 'true' }
+        });
         if (res.ok && isMounted) {
           const json = await res.json();
           if (json.status === 'success' && json.data) {

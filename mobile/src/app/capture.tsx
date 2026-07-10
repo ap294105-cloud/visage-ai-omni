@@ -92,6 +92,7 @@ export default function CaptureScreen() {
         const response = await fetch(`${backendHost}/api/v2/analyze/validate_face`, {
           method: 'POST',
           body: formData,
+          headers: { 'Bypass-Tunnel-Reminder': 'true' }
         });
         
         if (response.ok && isMounted) {
@@ -197,7 +198,7 @@ export default function CaptureScreen() {
         const response = await fetch(`${backendHost}/api/v2/analyze/facial_feature_set`, {
           method: 'POST',
           body: formData,
-          headers: { 'Accept': 'application/json' },
+          headers: { 'Accept': 'application/json', 'Bypass-Tunnel-Reminder': 'true' },
         });
 
         if (!response.ok) {
