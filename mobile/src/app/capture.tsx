@@ -335,7 +335,7 @@ export default function CaptureScreen() {
       </View>
 
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.btnCancel} onPress={() => router.replace('/')}>
+        <TouchableOpacity style={styles.btnCancel} onPress={() => router.replace('/scan')}>
           <Text style={styles.btnCancelText}>ABORT</Text>
         </TouchableOpacity>
       </View>
