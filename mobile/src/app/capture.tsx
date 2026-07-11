@@ -315,7 +315,11 @@ export default function CaptureScreen() {
                   }
                 ]}
               >
-                <BlurView intensity={20} tint="light" style={StyleSheet.absoluteFill} />
+                {Platform.OS === 'web' ? (
+                  <BlurView intensity={20} tint="light" style={StyleSheet.absoluteFill} />
+                ) : (
+                  <View style={[StyleSheet.absoluteFill, { backgroundColor: 'rgba(255, 255, 255, 0.1)' }]} />
+                )}
                 <View style={styles.scannerLine} />
               </Animated.View>
 
