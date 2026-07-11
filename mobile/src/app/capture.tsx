@@ -88,7 +88,7 @@ export default function CaptureScreen() {
           formData.append('image_payload', { uri: Platform.OS === 'ios' ? photo.uri.replace('file://', '') : photo.uri, name: filename, type: 'image/jpeg' } as any);
         }
         
-        const backendHost = 'https://visage-backend-ap.loca.lt';
+        const backendHost = 'https://visage-backend.onrender.com';
         const response = await fetch(`${backendHost}/api/v2/analyze/validate_face`, {
           method: 'POST',
           body: formData,
@@ -194,7 +194,7 @@ export default function CaptureScreen() {
           formData.append('image_payload', { uri: Platform.OS === 'ios' ? photo.uri.replace('file://', '') : photo.uri, name: filename, type } as any);
         }
 
-        const backendHost = 'https://visage-backend-ap.loca.lt';
+        const backendHost = 'https://visage-backend.onrender.com';
         const response = await fetch(`${backendHost}/api/v2/analyze/facial_feature_set`, {
           method: 'POST',
           body: formData,
