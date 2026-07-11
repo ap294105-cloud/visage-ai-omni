@@ -161,7 +161,7 @@ export default function CaptureScreen() {
   const executeAnalysis = async () => {
     if (cameraRef.current) {
       try {
-        const photo = await cameraRef.current.takePictureAsync({ quality: 0.8, base64: false });
+        const photo = await cameraRef.current.takePictureAsync({ quality: 0.2, base64: false });
         
         const formData = new FormData();
         formData.append('user_id', subjectId);
