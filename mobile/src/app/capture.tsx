@@ -41,9 +41,9 @@ export default function CaptureScreen() {
     };
   }, []);
 
-  const isLightingGood = lux > 150 && lux < 10000;
-  const [isFaceCentered, setIsFaceCentered] = useState(false);
-  const [isForeheadVisible, setIsForeheadVisible] = useState(false);
+  const isLightingGood = Platform.OS === 'web' ? (lux > 150 && lux < 10000) : true;
+  const [isFaceCentered, setIsFaceCentered] = useState(Platform.OS !== 'web');
+  const [isForeheadVisible, setIsForeheadVisible] = useState(Platform.OS !== 'web');
   const isReady = isFaceCentered && isForeheadVisible && isLightingGood;
 
   const triggerScan = () => {
@@ -53,6 +53,13 @@ export default function CaptureScreen() {
   };
 
   useEffect(() => {
+    if (Platform.OS !== 'web') {
+      // On mobile, set initial face alignment check states immediately to bypass the camera capture loop
+      setIsFaceCentered(true);
+      setIsForeheadVisible(true);
+      return;
+    }
+
     if (flowState !== 'align_face') return;
     
     let isMounted = true;
@@ -361,7 +368,18 @@ const styles = StyleSheet.create({
   btnCancelText: { color: '#666', fontSize: 11, fontWeight: '600', letterSpacing: 1.5 },
   
   mainContent: { flex: 1, justifyContent: 'center', alignItems: 'center', paddingVertical: 20 },
-  cameraCard: { width: '100%', maxWidth: 460, height: '100%', maxHeight: 680, backgroundColor: '#000', borderRadius: 4, overflow: 'hidden', position: 'relative', borderWidth: 1, borderColor: '#1A1A1A' },
+  cameraCard: { 
+    width: '100%', 
+    maxWidth: 460, 
+    height: '100%', 
+    maxHeight: 680, 
+    backgroundColor: '#000', 
+    borderRadius: Platform.OS === 'web' ? 4 : 0, 
+    overflow: Platform.OS === 'web' ? 'hidden' : 'visible', 
+    position: 'relative', 
+    borderWidth: Platform.OS === 'web' ? 1 : 0, 
+    borderColor: '#1A1A1A' 
+  },
   camera: { ...StyleSheet.absoluteFillObject },
 
   overlayBottomHalf: { position: 'absolute', bottom: 0, left: 0, right: 0, justifyContent: 'flex-end' },
