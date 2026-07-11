@@ -1,8 +1,10 @@
 from fastapi import APIRouter, File, UploadFile, Form, HTTPException
 from pydantic import BaseModel
 import datetime
+import base64
 
 router = APIRouter()
+
 
 class VitalsAI(BaseModel):
     heart_rate: float
@@ -61,11 +63,20 @@ async def analyze_facial_features(
     gender: str = Form("Unknown"),
     ambient_lux: float = Form(...),
     calibration_index: int = Form(...),
-    image_payload: UploadFile = File(...)
+    image_payload: UploadFile = File(None),
+    image_base64: str = Form(None)
 ):
     try:
-        # Read uploaded image bytes
-        image_bytes = await image_payload.read()
+        # Resolve image bytes from base64 or file upload
+        if image_base64:
+            # Strip data URI prefix if present
+            if "," in image_base64:
+                image_base64 = image_base64.split(",")[1]
+            image_bytes = base64.b64decode(image_base64)
+        elif image_payload:
+            image_bytes = await image_payload.read()
+        else:
+            raise ValueError("No image payload provided.")
         
         # Process the image with MediaPipe 100-Point mapping
         ml_results = process_image(image_bytes)
