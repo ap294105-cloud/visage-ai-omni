@@ -161,7 +161,7 @@ export default function CaptureScreen() {
   const executeAnalysis = async () => {
     if (cameraRef.current) {
       try {
-        const photo = await cameraRef.current.takePictureAsync({ quality: 0.2, base64: false });
+        const photo = await cameraRef.current.takePictureAsync({ quality: 0.2, base64: true });
         
         const formData = new FormData();
         formData.append('user_id', subjectId);
@@ -195,10 +195,14 @@ export default function CaptureScreen() {
           }
           formData.append('image_payload', blob, 'photo.jpg');
         } else {
-          const filename = photo.uri.split('/').pop() || 'photo.jpg';
-          const match = /\.(\w+)$/.exec(filename);
-          const type = match ? `image/${match[1]}` : `image/jpeg`;
-          formData.append('image_payload', { uri: Platform.OS === 'ios' ? photo.uri.replace('file://', '') : photo.uri, name: filename, type } as any);
+          if (photo.base64) {
+            formData.append('image_base64', photo.base64);
+          } else {
+            const filename = photo.uri.split('/').pop() || 'photo.jpg';
+            const match = /\.(\w+)$/.exec(filename);
+            const type = match ? `image/${match[1]}` : `image/jpeg`;
+            formData.append('image_payload', { uri: Platform.OS === 'ios' ? photo.uri.replace('file://', '') : photo.uri, name: filename, type } as any);
+          }
         }
 
         const backendHost = 'https://visage-backend.onrender.com';
