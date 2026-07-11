@@ -367,20 +367,23 @@ const styles = StyleSheet.create({
   btnCancel: { paddingHorizontal: 20, paddingVertical: 10 },
   btnCancelText: { color: '#666', fontSize: 11, fontWeight: '600', letterSpacing: 1.5 },
   
-  mainContent: { flex: 1, justifyContent: 'center', alignItems: 'center', paddingVertical: 20 },
-  cameraCard: { 
-    width: '100%', 
-    maxWidth: 460, 
-    height: '100%', 
-    maxHeight: 680, 
-    backgroundColor: '#000', 
-    borderRadius: Platform.OS === 'web' ? 4 : 0, 
-    overflow: Platform.OS === 'web' ? 'hidden' : 'visible', 
-    position: 'relative', 
-    borderWidth: Platform.OS === 'web' ? 1 : 0, 
-    borderColor: '#1A1A1A' 
+  mainContent: { 
+    flex: 1, 
+    width: '100%',
+    backgroundColor: 'transparent' 
   },
-  camera: { ...StyleSheet.absoluteFillObject },
+  cameraCard: { 
+    flex: 1,
+    width: '100%', 
+    position: 'relative', 
+    backgroundColor: 'transparent',
+  },
+  camera: { 
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'transparent',
+  },
 
   overlayBottomHalf: { position: 'absolute', bottom: 0, left: 0, right: 0, justifyContent: 'flex-end' },
   overlaySolid: { backgroundColor: 'rgba(10, 10, 10, 0.95)', padding: 24, paddingBottom: 32, borderTopWidth: 1, borderTopColor: '#222' },
