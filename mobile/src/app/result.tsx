@@ -110,13 +110,15 @@ export default function ResultScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* 3D Wireframe background mapping */}
-      <View style={styles.canvasContainer}>
-        <Canvas>
-          <ambientLight intensity={0.5} />
-          <ResultMesh />
-        </Canvas>
-      </View>
+      {/* 3D Wireframe background mapping - Web only */}
+      {Platform.OS === 'web' && (
+        <View style={styles.canvasContainer}>
+          <Canvas>
+            <ambientLight intensity={0.5} />
+            <ResultMesh />
+          </Canvas>
+        </View>
+      )}
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
         {fromAdmin && (
